@@ -1,1 +1,1 @@
-# hello-openai
+# My Open AI and LangChain playground 🛴
