@@ -4,12 +4,12 @@
 
 The user will give a question or statement to the AI. The AI will not give back the first answer. It will create a list of assumptions, assert them, and then give a better response.
 
-```
+```python
 user_question = "Malaga is an area with a lot of rain"
 ```
 
 ## Chain 1: Give the question to the AI, the output of the chain is the first response (statement)
-```
+```python
 template = """{question}\n\n"""
 prompt_template = PromptTemplate(input_variables=["question"], template=template)
 question_chain = LLMChain(llm=llm, prompt=prompt_template)
@@ -19,7 +19,7 @@ question_chain = LLMChain(llm=llm, prompt=prompt_template)
 No, Malaga is a city in Spain located on the south coast of the Mediterranean Sea. It has a Mediterranean climate with hot dry summers and mild, wet winters. The average annual temperature is 19.1 °C (66.3°F). Rainfall is low, with an average annual precipitation of only 331 mm (13.03 inches).
 
 ## Chain 2: Generating assumptions made in the statement
-```
+```python
 template = """Here is a statement:
     {statement}
     Make a bullet point list of the assumptions you made when producing the above statement.\n\n"""
@@ -41,7 +41,7 @@ assumptions_chain_seq = SimpleSequentialChain(
 - Average annual precipitation of 331 mm (13.03 inches)
 
 ## Chain 3: Fact checking the assumptions
-```
+```python
 template = """Here is a bullet point list of assertions:
 {assertions}
 For each assertion, determine whether it is true or false. If it is false, explain why.\n\n"""
@@ -63,7 +63,7 @@ fact_checker_chain_seq = SimpleSequentialChain(
 - Average annual precipitation of 331 mm (13.03 inches): True
 
 ## Final Chain: Generating the final answer to the user's question based on the facts and assumptions
-```
+```python
 template = """In light of the above facts, how would you answer the question '{}'. 
               Consider the facts and the assertion to give a good answer""".format(
     user_question
